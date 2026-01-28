@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { CheckCircle, XCircle, Loader } from "lucide-react";
 import { authAPI } from "../services/api";
 import "./Auth.css";
@@ -19,18 +20,24 @@ export default function VerifyEmail() {
 
             if (!token) {
                 setStatus("error");
-                setMessage("Invalid verification link");
+                const msg = "Invalid verification link";
+                setMessage(msg);
+                toast.error(msg);
                 return;
             }
 
             try {
                 const response = await authAPI.verifyEmail(token);
                 setStatus("success");
-                setMessage(response.data.message || "Email verified successfully!");
+                const msg = response.data.message || "Email verified successfully!";
+                setMessage(msg);
+                toast.success(msg);
             } catch (error: unknown) {
                 setStatus("error");
                 const err = error as { response?: { data?: { message?: string } } };
-                setMessage(err.response?.data?.message || "Verification failed");
+                const msg = err.response?.data?.message || "Verification failed";
+                setMessage(msg);
+                toast.error(msg);
             }
         };
 
