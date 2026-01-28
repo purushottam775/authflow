@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 
 /* =========================
-   ✅ CORS (CORRECT & SAFE)
+   ✅ CORS (WORKING)
 ========================= */
 app.use(
     cors({
@@ -23,14 +23,11 @@ app.use(
             "https://authflow-wine.vercel.app",
             "https://authflow-4vr4uvuqi-purushottams-projects-e04d4b96.vercel.app",
         ],
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
-
-// ✅ MUST allow preflight
-app.options("*", cors());
 
 /* =========================
    🔐 Middlewares
