@@ -26,10 +26,14 @@ const corsOptions = {
 
         // In production, only allow CLIENT_URL or hardcoded production URL
         const PRODUCTION_URL = "https://authflow-wine.vercel.app";
+
         if (process.env.NODE_ENV === "production") {
-            if (origin === process.env.CLIENT_URL || origin === PRODUCTION_URL) {
+            const allowed = [process.env.CLIENT_URL, PRODUCTION_URL].filter(Boolean);
+
+            if (allowed.includes(origin)) {
                 callback(null, true);
             } else {
+                console.error(`[CORS BLOCK] Origin: '${origin}' not found in allowed list: ${JSON.stringify(allowed)}`);
                 callback(new Error("Not allowed by CORS"));
             }
         } else {
