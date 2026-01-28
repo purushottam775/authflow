@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // API base URL - uses env variable or defaults to localhost
-const API_URL = import.meta.env.VITE_API_URL || "https://authflow-1-v7pl.onrender.com/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://authflow-2.onrender.com/api";
 
 // Create axios instance
 const api = axios.create({
