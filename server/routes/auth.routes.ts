@@ -6,11 +6,13 @@ import {
     logout,
     forgotPassword,
     resetPassword,
+    debugEnv
 } from "../controllers/auth.controller";
 
 const router = Router();
 
 // 🔐 Auth Routes
+router.get("/debug-env", debugEnv);
 router.post("/signup", signup);
 router.get("/verify/:token", verifyEmail);
 router.post("/login", login);

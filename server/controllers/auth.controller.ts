@@ -9,6 +9,22 @@ import { generateOTP } from "../utils/otp";
 /* =========================
    SIGN UP (REGISTER)
 ========================= */
+export const debugEnv = (req: Request, res: Response) => {
+    const PRODUCTION_URL = "https://authflow-wine.vercel.app";
+    const clientUrl = process.env.CLIENT_URL || PRODUCTION_URL;
+
+    res.json({
+        message: "Debug Environment",
+        env: {
+            NODE_ENV: process.env.NODE_ENV,
+            CLIENT_URL_RAW: process.env.CLIENT_URL,
+            FALLBACK_URL: PRODUCTION_URL,
+            RESOLVED_CLIENT_URL: clientUrl,
+            PORT: process.env.PORT
+        }
+    });
+};
+
 export const signup = async (req: Request, res: Response) => {
     try {
         const { name, email, password } = req.body;
