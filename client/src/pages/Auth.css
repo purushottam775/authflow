@@ -1,0 +1,182 @@
+/* Auth Pages Shared Styles */
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.form-input.with-icon {
+    padding-left: 44px;
+}
+
+.input-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    color: var(--text-muted);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-toggle:hover {
+    color: var(--text-primary);
+}
+
+.forgot-link {
+    color: var(--primary-light);
+    font-size: 14px;
+    display: inline-block;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+.w-full {
+    width: 100%;
+}
+
+/* Success State */
+.auth-success {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.auth-success-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid var(--success);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--success);
+}
+
+.auth-success h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.auth-success p {
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+/* OTP Input */
+.otp-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.otp-input {
+    width: 50px;
+    height: 56px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Resend Button */
+.resend-container {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.resend-text {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.resend-btn {
+    color: var(--primary-light);
+    font-weight: 500;
+    background: transparent;
+    padding: 0;
+    font-size: 14px;
+}
+
+.resend-btn:hover {
+    text-decoration: underline;
+}
+
+.resend-btn:disabled {
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* Page Container with Navbar offset */
+.auth-page-wrapper {
+    padding-top: var(--navbar-height);
+}
+
+/* Responsive Auth Styles */
+@media (max-width: 768px) {
+    .otp-container {
+        gap: 8px;
+    }
+
+    .otp-input {
+        width: 44px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .auth-success {
+        padding: 24px 0;
+    }
+
+    .auth-success-icon {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+@media (max-width: 480px) {
+    .otp-container {
+        gap: 6px;
+    }
+
+    .otp-input {
+        width: 40px;
+        height: 46px;
+        font-size: 18px;
+    }
+
+    .forgot-link {
+        font-size: 13px;
+    }
+
+    .resend-text,
+    .resend-btn {
+        font-size: 13px;
+    }
+}
