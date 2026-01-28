@@ -24,9 +24,10 @@ const corsOptions = {
         // Allow requests with no origin (mobile apps, Postman, etc)
         if (!origin) return callback(null, true);
 
-        // In production, only allow CLIENT_URL
+        // In production, only allow CLIENT_URL or hardcoded production URL
+        const PRODUCTION_URL = "https://authflow-wine.vercel.app";
         if (process.env.NODE_ENV === "production") {
-            if (origin === process.env.CLIENT_URL) {
+            if (origin === process.env.CLIENT_URL || origin === PRODUCTION_URL) {
                 callback(null, true);
             } else {
                 callback(new Error("Not allowed by CORS"));
