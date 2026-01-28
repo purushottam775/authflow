@@ -14,18 +14,30 @@ const app = express();
 
 // 🔐 Middlewares
 const allowedOrigins = [
-    process.env.CLIENT_URL || "http://localhost:5173",
+    process.env.CLIENT_URL,
     "http://localhost:5173",
     "http://localhost:5174",
-];
+].filter(Boolean) as string[];
+
 const corsOptions = {
     origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
         // Allow requests with no origin (mobile apps, Postman, etc)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
+
+        // In production, only allow CLIENT_URL
+        if (process.env.NODE_ENV === "production") {
+            if (origin === process.env.CLIENT_URL) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
         } else {
-            callback(null, true); // Allow all in dev, change for production
+            // In development, allow all origins in the list
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(null, true); // Allow all in dev
+            }
         }
     },
     credentials: true,
@@ -33,7 +45,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
+app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
 
 // 🌐 Routes
 app.use("/api/auth", authRoutes);

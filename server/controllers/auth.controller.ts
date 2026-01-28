@@ -28,7 +28,14 @@ export const signup = async (req: Request, res: Response) => {
             isVerified: false,
         });
 
-        const verifyLink = `${process.env.CLIENT_URL}/verify/${verifyToken}`;
+        // Fallback to production URL if CLIENT_URL is not set
+        const PRODUCTION_URL = "https://authflow-wine.vercel.app";
+        const clientUrl = process.env.CLIENT_URL || PRODUCTION_URL;
+
+        console.log("[DEBUG] CLIENT_URL from env:", process.env.CLIENT_URL);
+        console.log("[DEBUG] Using clientUrl:", clientUrl);
+
+        const verifyLink = `${clientUrl}/verify/${verifyToken}`;
 
         await sendEmail(
             email,
@@ -81,7 +88,7 @@ export const login = async (req: Request, res: Response) => {
         if (!user.isVerified)
             return res.status(401).json({ message: "Please verify your email" });
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password as string);
         if (!isMatch)
             return res.status(401).json({ message: "Invalid credentials" });
 

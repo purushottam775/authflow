@@ -6,7 +6,7 @@ import {
     logout,
     forgotPassword,
     resetPassword,
-} from "../controllers/auth.controller.ts";
+} from "../controllers/auth.controller";
 
 const router = Router();
 
