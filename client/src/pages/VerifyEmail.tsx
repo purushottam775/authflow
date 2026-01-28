@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { CheckCircle, XCircle, Loader } from "lucide-react";
 import { authAPI } from "../services/api";
@@ -9,9 +9,14 @@ export default function VerifyEmail() {
     const navigate = useNavigate();
     const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
     const [message, setMessage] = useState("");
+    const hasVerified = useRef(false);
 
     useEffect(() => {
         const verifyToken = async () => {
+            // Prevent double execution in React Strict Mode
+            if (hasVerified.current) return;
+            hasVerified.current = true;
+
             if (!token) {
                 setStatus("error");
                 setMessage("Invalid verification link");
